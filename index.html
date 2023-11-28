@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WMO ARTS & SCIENCE COLLEGE E-SPACE</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f5f5f5;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      form {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 300px;
+      }
+
+      h2 {
+        text-align: center;
+        color: #333;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        color: #555;
+      }
+
+      input {
+        width: calc(100% - 16px);
+        padding: 8px;
+        margin-bottom: 16px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      #password-strength {
+        margin-top: 5px;
+        color: #555;
+      }
+
+      #submitBtn {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+      }
+
+      #submitBtn:hover {
+        background-color: #317d34;
+      }
+
+      .error {
+        color: #b71a1a;
+        margin-top: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="registrationForm" onsubmit="return validateForm()">
+      <h2>WMO ARTS & SCIENCE COLLEGE E-SPACE</h2>
+
+      <label>Name:</label>
+      <input type="text" id="name" required />
+
+      <label>Email:</label>
+      <input type="email" id="email" required />
+      <div id="emailError" class="error"></div>
+
+      <label for="password">Password:</label>
+      <input
+        type="password"
+        id="password"
+        oninput="checkPasswordStrength()"
+        required
+      />
+      <div id="passwordError" class="error"></div>
+      <div id="password-strength"></div>
+
+      <label for="confirmPassword">Confirm Password:</label>
+      <input type="password" id="confirmPassword" required />
+      <div id="confirmPasswordError" class="error"></div>
+
+      <button type="submit" id="submitBtn">Submit</button>
+    </form>
+
+    <script>
+      function validateForm() {
+        // Reset error messages
+        document.getElementById("emailError").innerHTML = "";
+        document.getElementById("passwordError").innerHTML = "";
+        document.getElementById("confirmPasswordError").innerHTML = "";
+
+        // Validate email
+        var email = document.getElementById("email").value;
+        if (!isValidEmail(email)) {
+          document.getElementById("emailError").innerHTML =
+            "Invalid email address";
+          return false;
+        }
+
+        // Validate password
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirmPassword").value;
+        if (password.length < 8) {
+          document.getElementById("passwordError").innerHTML =
+            "Password must be at least 8 characters";
+          return false;
+        }
+        if (password !== confirmPassword) {
+          document.getElementById("confirmPasswordError").innerHTML =
+            "Passwords do not match";
+          return false;
+        }
+
+        return true;
+      }
+
+      function isValidEmail(email) {
+  
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+      }
+
+      function checkPasswordStrength() {
+        var password = document.getElementById("password").value;
+        var strengthIndicator = document.getElementById("password-strength");
+
+        // Check password strength and provide feedback
+        if (password.length === 0) {
+          strengthIndicator.innerHTML = "";
+        } else if (password.length < 8) {
+          strengthIndicator.innerHTML = "Weak";
+          strengthIndicator.style.color = "#f44336";
+        } else if (password.length < 12) {
+          strengthIndicator.innerHTML = "Moderate";
+          strengthIndicator.style.color = "#ffa500";
+        } else {
+          strengthIndicator.innerHTML = "Strong";
+          strengthIndicator.style.color = "#4caf50";
+        }
+      }
+    </script>
+  </body>
+</html>
